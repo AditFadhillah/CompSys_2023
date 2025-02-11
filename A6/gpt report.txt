@@ -1,0 +1,29 @@
+This code is implementing a cache memory system in C. The cache is a small, fast memory that stores frequently accessed data from a larger, slower memory. When a computer needs to access data, it first checks the cache to see if the data is stored there. If the data is in the cache (called a "cache hit"), the computer can access it more quickly than if it had to retrieve the data from the larger memory. If the data is not in the cache (called a "cache miss"), it must be retrieved from the larger memory and added to the cache.
+
+The code defines a struct called cache to represent a block of data in the cache. Each cache struct has four fields:
+
+\begin{itemize}
+\item valid: a flag indicating whether the block is currently storing valid data (1) or not (0)
+\item tag: an identifier for the block of data in the larger memory that is stored in the cache block
+\item lru: an integer representing the least-recently-used order of the block; blocks with a lower lru value are used more recently than blocks with a higher value
+\item data: an array of 4 integers representing the data stored in the cache block
+\end{itemize}
+
+The code also defines several global variables:
+
+\begin{itemize}
+\item mem: a pointer to a memory struct (not defined in this code)
+\item cache: an array of MAX\_CACHE\_SIZE cache structs, representing the cache memory
+\item W, S, and B: integers representing the width (number of words per block), the number of blocks in the cache, and the size of the cache in bytes, respectively
+\end{itemize}
+The code then declares several functions:
+
+\begin{itemize}
+\item init\_cache: initializes all fields of all cache structs in the cache array to default values
+\item search\_cache: searches the cache array for a cache block with the specified address and returns the index of the block if it is found, or -1 if it is not found
+\item add\_to\_cache: adds a new block to the cache array for the specified address and data
+\item update\_cache: updates an existing block in the cache array at the specified index with the specified address and data
+\item simulate\_cache: simulates the operation of the cache memory system by reading in a series of instructions (either "read" or "write") and addresses, and either retrieving the data from the cache or adding it to the cache as necessary.
+\end{itemize}
+
+The simulate\_cache function begins by reading in a series of instructions and addresses from standard input using the scanf function. If the instruction is "i", the function prints out the instruction and address and continues to the next instruction. If the instruction is "r" (read), the function searches the cache for the specified address using the search\_cache function. If the address is found in the cache (cache hit), the data is retrieved from the cache and printed out along with the cache index and lru value of the cache block. If the address is not found in the cache (cache miss), the data is retrieved from the larger memory using the memory struct and added to the cache using the add\_to\_cache function. If the instruction is "w" (write), the function behaves similarly to a read instruction, but also updates the data in the cache using the update\_cache function.
